@@ -131,7 +131,7 @@ real-time-chat/
 - `userCount`: Update connected users
 
 
-Live Link: [[https://github.com/yourusername/real-time-chat](https://chat-sphere-frontend-chi.vercel.app/)]
+Live Link: [[https://chat-sphere-frontend-chi.vercel.app/](https://chat-sphere-frontend-chi.vercel.app/)]
 
 ---
 
