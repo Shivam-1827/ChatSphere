@@ -1,8 +1,7 @@
-# Real-Time Chat Application
+# ChatSphere - Real-Time Chat Application with AI
 
 ## Overview
-
-This is a real-time chat application built with React, TypeScript, and WebSocket technology. The application allows users to create and join temporary chat rooms with unique room codes, enabling instant communication between two users.
+ChatSphere is a real-time chat application built with React, TypeScript, and WebSocket technology, enhanced with AI capabilities. The application allows users to create and join temporary chat rooms with unique room codes, enabling instant communication with AI-powered features.
 
 ## 🌟 Features
 
@@ -10,6 +9,7 @@ This is a real-time chat application built with React, TypeScript, and WebSocket
 - **Dynamic Room Creation**: Generate unique 6-character room codes
 - **Real-Time Messaging**: Instant message transmission using WebSocket
 - **User Count Tracking**: Live updates of connected users
+- **AI-Powered Chat Summarization**: Get AI-generated summaries of conversations
 - **Responsive Design**: Mobile and desktop-friendly interface
 - **Temporary Rooms**: Rooms expire when users exit
 
@@ -20,6 +20,7 @@ This is a real-time chat application built with React, TypeScript, and WebSocket
 - Tailwind CSS for styling
 - Automatic scrolling in chat interface
 - Differentiated message styling (sent vs. received)
+- AI integration for conversation analysis and summaries
 
 ## 🚀 Technologies Used
 
@@ -34,6 +35,7 @@ This is a real-time chat application built with React, TypeScript, and WebSocket
 - Node.js
 - WebSocket Server (`ws` library)
 - TypeScript
+- AI integration for chat summarization
 
 ## 🔧 Installation
 
@@ -42,11 +44,10 @@ This is a real-time chat application built with React, TypeScript, and WebSocket
 - npm or yarn
 
 ### Setup Steps
-
 1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/real-time-chat.git
-cd real-time-chat
+git clone https://github.com/yourusername/chatsphere.git
+cd chatsphere
 ```
 
 2. Install Frontend Dependencies
@@ -69,8 +70,7 @@ npm install
 ```bash
 # In backend directory
 npm run start
-# or
-ts-node index.ts
+# or ts-node index.ts
 ```
 
 ### Start Frontend
@@ -81,7 +81,7 @@ npm run dev
 
 ## 📂 Project Structure
 ```
-real-time-chat/
+chatsphere/
 │
 ├── frontend/
 │   ├── src/
@@ -91,7 +91,7 @@ real-time-chat/
 │   │   └── App.tsx            # Main application routing
 │
 └── backend/
-    └── index.ts               # WebSocket server logic
+    └── index.ts               # WebSocket server logic & AI integration
 ```
 
 ## 🔒 How It Works
@@ -102,13 +102,17 @@ real-time-chat/
 
 2. **Room Joining**
    - Enter the room code to join an existing room
-   - Maximum of 2 users per room
    - Real-time user count updates
 
 3. **Messaging**
    - Send messages in real-time
    - Messages are color-coded (white for sent, dark for received)
    - Automatic scrolling to latest message
+
+4. **AI Chat Summarization**
+   - Request AI-generated summaries of your conversations
+   - One-click summary generation
+   - AI-processed content shared with all room participants
 
 ## 🌈 User Interface
 
@@ -122,6 +126,7 @@ real-time-chat/
 - User count indicator
 - Message input area
 - Scrollable message history
+- AI summary request button
 
 ## 🔍 WebSocket Communication
 
@@ -130,9 +135,18 @@ real-time-chat/
 - `chat`: Send/receive messages
 - `userCount`: Update connected users
 
+## 🤖 AI Integration
 
-Live Link: [[https://chat-sphere-frontend-chi.vercel.app/](https://chat-sphere-frontend-chi.vercel.app/)]
+ChatSphere leverages artificial intelligence to enhance the chat experience:
+
+- **Conversation Summarization**: Get concise AI-generated summaries of your chat history
+- **Clean Formatting**: AI removes unnecessary formatting characters for readable summaries
+- **Seamless Integration**: Summary results are broadcast to all room participants
+
+## 📱 Live Demo
+
+Live Link: [ChatSphere](https://chatsphere1-zeta.vercel.app/)
 
 ---
 
-**Happy Chatting! 🚀💬**
+**Happy AI-Enhanced Chatting! 🚀💬**
