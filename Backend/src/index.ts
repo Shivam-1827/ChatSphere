@@ -1,6 +1,28 @@
 import { WebSocketServer, WebSocket } from "ws";
+import axios from "axios";
+import dotenv from "dotenv";
+import express from "express"
+import { Request, Response } from "express";
+import cors from "cors";
 
-const wss = new WebSocketServer({ port: 8080 });
+dotenv.config();
+// Use Render's PORT environment variable or fallback to other options
+const expressPort = process.env.PORT || process.env.EXPRESS_PORT || 3000;
+const API_KEY = process.env.OPENAI_API_KEY;
+
+const app = express();
+app.use(express.json());
+app.use(cors());
+
+// Create HTTP server first
+const server = app.listen(expressPort, () => {
+    console.log(`App is running at port: ${expressPort}`);
+});
+
+// Attach WebSocket server to HTTP server
+const wss = new WebSocketServer({ server });
+
+let allMessages: string = "";
 
 interface User {
     socket: WebSocket;
@@ -56,6 +78,7 @@ wss.on("connection", (socket) => {
                 const message = parsedMessage.payload.message;
                 
                 console.log(`Chat message in room ${roomId}: ${message}`);
+                allMessages += message;
 
                 const roomSockets = allSockets.filter(u => u.room === roomId);
                 
@@ -88,4 +111,37 @@ wss.on("connection", (socket) => {
     });
 });
 
-console.log("WebSocket server running on port 8080");
+async function summarize(req: Request, res: Response) {
+    try {
+        const prompt = `Summarize important things from the following conversation :\n\n${allMessages}`;
+
+        const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`;
+
+        const response = await axios.post(geminiUrl, {
+            contents: [
+                {
+                    parts: [{ text: prompt }]
+                }
+            ]
+        });
+
+        const summary = response.data.candidates?.[0]?.content?.parts?.[0]?.text || "No summary generated.";
+        res.json({ summary });
+
+    } catch (error: any) {
+        console.error("Error summarizing messages:", error.response?.data || error.message);
+        res.status(500).json({ error: "Failed to summarize conversation." });
+    }
+}
+
+app.get("/summarize", async (req: Request, res: Response) => {
+    summarize(req, res).catch((err: any) => {
+        console.error(err);
+        res.status(500).json({ message: "Internal server error!" });
+    });
+});
+
+// Add a basic root route for health checks
+app.get("/", (req: Request, res: Response) => {
+    res.send("Server is running!");
+});
